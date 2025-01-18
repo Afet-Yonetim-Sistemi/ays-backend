@@ -983,6 +983,90 @@ class EmergencyEvacuationApplicationControllerTest extends AysRestControllerTest
     }
 
     @Test
+    void givenInvalidEmergencyEvacuationApplicationRequest_whenSourceCityAndTargetCityAreBlank_thenReturnValidationError() throws Exception {
+        // Given
+        EmergencyEvacuationApplicationRequest mockApplicationRequest = new EmergencyEvacuationRequestBuilder()
+                .withValidValues()
+                .withSourceCity("")
+                .withSourceDistrict("Maltepe")
+                .withTargetCity("")
+                .withTargetDistrict("Maltepe")
+                .build();
+
+        // Then
+        String endpoint = BASE_PATH.concat("/emergency-evacuation-application");
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = AysMockMvcRequestBuilders
+                .post(endpoint, mockApplicationRequest);
+
+        AysErrorResponse mockErrorResponse = AysErrorResponseBuilder.VALIDATION_ERROR;
+        aysMockMvc.perform(mockHttpServletRequestBuilder, mockErrorResponse)
+                .andExpect(AysMockResultMatchersBuilders.status()
+                        .isBadRequest())
+                .andExpect(AysMockResultMatchersBuilders.subErrors()
+                        .isNotEmpty());
+
+        // Verify
+        Mockito.verify(emergencyEvacuationApplicationService, Mockito.never())
+                .create(Mockito.any(EmergencyEvacuationApplicationRequest.class));
+    }
+
+    @Test
+    void givenInvalidEmergencyEvacuationApplicationRequest_whenSourceDistrictAndTargetDistrictAreBlank_thenReturnValidationError() throws Exception {
+        // Given
+        EmergencyEvacuationApplicationRequest mockApplicationRequest = new EmergencyEvacuationRequestBuilder()
+                .withValidValues()
+                .withSourceCity("Adana")
+                .withSourceDistrict("")
+                .withTargetCity("Adana")
+                .withTargetDistrict("")
+                .build();
+
+        // Then
+        String endpoint = BASE_PATH.concat("/emergency-evacuation-application");
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = AysMockMvcRequestBuilders
+                .post(endpoint, mockApplicationRequest);
+
+        AysErrorResponse mockErrorResponse = AysErrorResponseBuilder.VALIDATION_ERROR;
+        aysMockMvc.perform(mockHttpServletRequestBuilder, mockErrorResponse)
+                .andExpect(AysMockResultMatchersBuilders.status()
+                        .isBadRequest())
+                .andExpect(AysMockResultMatchersBuilders.subErrors()
+                        .isNotEmpty());
+
+        // Verify
+        Mockito.verify(emergencyEvacuationApplicationService, Mockito.never())
+                .create(Mockito.any(EmergencyEvacuationApplicationRequest.class));
+    }
+
+    @Test
+    void givenInvalidEmergencyEvacuationApplicationRequest_whenAllCitiesAndDistrictsAreBlank_thenReturnValidationError() throws Exception {
+        // Given
+        EmergencyEvacuationApplicationRequest mockApplicationRequest = new EmergencyEvacuationRequestBuilder()
+                .withValidValues()
+                .withSourceCity("")
+                .withSourceDistrict("")
+                .withTargetCity("")
+                .withTargetDistrict("")
+                .build();
+
+        // Then
+        String endpoint = BASE_PATH.concat("/emergency-evacuation-application");
+        MockHttpServletRequestBuilder mockHttpServletRequestBuilder = AysMockMvcRequestBuilders
+                .post(endpoint, mockApplicationRequest);
+
+        AysErrorResponse mockErrorResponse = AysErrorResponseBuilder.VALIDATION_ERROR;
+        aysMockMvc.perform(mockHttpServletRequestBuilder, mockErrorResponse)
+                .andExpect(AysMockResultMatchersBuilders.status()
+                        .isBadRequest())
+                .andExpect(AysMockResultMatchersBuilders.subErrors()
+                        .isNotEmpty());
+
+        // Verify
+        Mockito.verify(emergencyEvacuationApplicationService, Mockito.never())
+                .create(Mockito.any(EmergencyEvacuationApplicationRequest.class));
+    }
+
+    @Test
     void givenValidIdAndValidUpdateRequest_whenApplicationUpdated_thenReturnSuccessResponse() throws Exception {
         // Given
         String mockId = "dbb3287a-563d-4d85-a978-bcd699294daa";
