@@ -39,9 +39,7 @@ public class EmergencyEvacuationApplication extends BaseDomainModel {
     private Boolean isInPerson;
     private Boolean hasObstaclePersonExist;
     private String notes;
-
     private Institution institution;
-
 
     /**
      * Checks if the application does not have an associated institution.
@@ -61,7 +59,6 @@ public class EmergencyEvacuationApplication extends BaseDomainModel {
     public boolean isInstitutionOwner(final String institutionId) {
         return this.institution.getId().equals(institutionId);
     }
-
 
     /**
      * Marks the emergency evacuation application as pending.

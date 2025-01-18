@@ -12,7 +12,6 @@ public class AysPasswordForgotRequest {
 
     @EmailAddress
     @NotBlank
-    @Size(min = 2, max = 255)
     private String emailAddress;
 
 }

@@ -30,6 +30,7 @@ class EmailAddressValidator implements ConstraintValidator<EmailAddress, String>
      *     <li>u@ser@.com</li>
      *     <li>user@..com</li>
      *     <li>user</li>
+     *     <li>a@b.c</li>
      * </ul>
      *
      * @param email object to validate
@@ -40,6 +41,10 @@ class EmailAddressValidator implements ConstraintValidator<EmailAddress, String>
 
         if (!StringUtils.hasText(email)) {
             return true;
+        }
+
+        if (email.length() <= 6 || email.length() >= 254) {
+            return this.buildViolation(constraintValidatorContext, "length must be between 6 and 254 characters");
         }
 
         if (email.startsWith(" ") || email.endsWith(" ")) {
